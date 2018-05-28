@@ -91,21 +91,13 @@ export declare class Store extends EventEmitter {
      * taken; intermediate values resolved by earlier calls to `set()`
      * will be ignored.
      *
-     * If `edit` itself is asynchronous, it will be queued until it is resolved
-     * (or rejected). In effect `set()` will behave as if was called during
-     * the future event loop in which `edit` resolves; only the final value
-     * resolved during that future loop will be considered.
-     *
      * Each time a final value is determined, it will be compared to the one
      * previously stored under `key`. If the two are different, the final value
-     * will be passed through middleware, saved, and finally emitted as an event;
-     * otherwise this store will remain unchanged, middleware will not be invoked,
-     * and no event will be emitted.
+     * will be emitted as an event; otherwise no event will be emitted.
      *
      * @param key - The location where the resolved value of `edit` is stored.
-     * @param edit - The value (or a promise for the value) of `key` to save or a
-     *     function, which – given the previous value of `key` – determines the
-     *     next value of `key` to save.
+     * @param edit - The value of to save as `key` or a function, which – given
+     *     the previous value of `key` – determines the next value to save.
      *
      * @returns A promise for the value eventually stored under `key`; if multiple
      *     values have been queued, this will be the final value resolved at the
