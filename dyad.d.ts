@@ -20,7 +20,6 @@ export declare class Store extends EventEmitter {
     private _emittingByKey;
     private _middleware;
     private _model;
-    private _nextValueByKey;
     private _prevValueByKey;
     private _reducersByType;
     /**

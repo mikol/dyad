@@ -57,35 +57,29 @@ var Store = /** @class */ (function (_super) {
          */
         _this.set = function (key, edit) {
             var model = _this._model;
-            var currentValue = model[key];
+            var value = model[key];
             var prevValueByKey = _this._prevValueByKey;
             if (!(key in prevValueByKey)) {
-                prevValueByKey[key] = currentValue;
+                prevValueByKey[key] = value;
             }
             try {
-                var nextValueByKey_1 = _this._nextValueByKey;
                 // Replace any prior value queued in the current event loop.
-                model[key] = nextValueByKey_1[key] =
-                    typeof edit === 'function' ? edit(currentValue) : edit;
+                model[key] = typeof edit === 'function' ? edit(value) : edit;
                 // Trust [spec’d Promise behavior](https://promisesaplus.com/#point-67)
                 // to perform further processing asynchronously in next event loop,
                 // allowing any subsequent values resolved in the current event loop
-                // to replace `nextValueByKey[key]`.
+                // to replace `model[key]`.
                 return Promise.resolve().then(function () {
-                    // // The stored value may have changed in the interim.
-                    // const currentValue = model[key]
-                    // The final value will have been recorded in `nextValueByKey[key]`
+                    var nextValue = model[key];
+                    // The final value will have been recorded in `prevValueByKey[key]`
                     // during the previous event loop. Clear it and then compare it to the
                     // current value stored under `key`. If the two values are different
                     // pass the new value through middleware, save the result, and emit a
                     // corresponding event.
-                    if (key in nextValueByKey_1) {
+                    if (key in prevValueByKey) {
                         var prevValue = prevValueByKey[key];
                         delete prevValueByKey[key];
-                        var nextValue = nextValueByKey_1[key];
-                        delete nextValueByKey_1[key];
                         if (nextValue !== prevValue) {
-                            model[key] = nextValue;
                             _this._emittingByKey[key] = true;
                             try {
                                 _this.emit(key, nextValue);
@@ -95,7 +89,7 @@ var Store = /** @class */ (function (_super) {
                             }
                         }
                     }
-                    return model[key];
+                    return nextValue;
                 });
             }
             catch (error) {
@@ -224,7 +218,6 @@ var Store = /** @class */ (function (_super) {
         this._isDispatching = false;
         this._middleware = [];
         this._model = {};
-        this._nextValueByKey = {};
         this._prevValueByKey = {};
         this._reducersByType = {};
         this.removeAllListeners();
