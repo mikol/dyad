@@ -1,4 +1,5 @@
 import * as EventEmitter from 'events'
+import isPlainObject = require('lodash.isplainobject')
 
 export interface Action {type: string, [key: string]: any}
 export type Dispatch = (action: any) => Promise<any>
@@ -271,13 +272,4 @@ const store = new Store()
  */
 export function getInstance() {
   return store
-}
-
-function isPlainObject(value: any): boolean {
-  if (value != null) {
-    const prototype = Object.getPrototypeOf(value)
-    return prototype === Object.prototype || prototype === null
-  }
-
-  return false
 }

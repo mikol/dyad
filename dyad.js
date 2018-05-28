@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var EventEmitter = require("events");
+var isPlainObject = require("lodash.isplainobject");
 /**
  * Exported for type only; prefer `Dyad.getInstance()` over `new Dyad.Store()`.
  */
@@ -235,10 +236,3 @@ function getInstance() {
     return store;
 }
 exports.getInstance = getInstance;
-function isPlainObject(value) {
-    if (value != null) {
-        var prototype = Object.getPrototypeOf(value);
-        return prototype === Object.prototype || prototype === null;
-    }
-    return false;
-}
