@@ -8,6 +8,10 @@
     "version": "run dist && git add .",
     "postversion": "git push && git push --tags"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikol/dyad.git"
+  },
   "keywords": [
     "async",
     "debounce",
@@ -27,14 +31,18 @@
     "url": "https://mikol.github.io/"
   },
   "license": "CC-BY-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/mikol/dyad/issues"
+  },
+  "homepage": "https://github.com/mikol/dyad#readme",
   "dependencies": {
     "@types/lodash": "^4.14.109",
+    "@types/node": "^9.6.2",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
     "@types/mocha": "^5.2.0",
-    "@types/node": "^9.6.2",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "ts-node": "^6.0.5",
