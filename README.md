@@ -7,13 +7,13 @@ Update state using a reactive `(state, action) => state` pattern.
 Listen for changes to a key; get notified if-and-only-if it changes (never when
 another key changes).
 
-# Installation
+## Installation
 
 ```
 npm install dyad
 ```
 
-# Usage
+## Usage
 
 ```js
 import * as Dyad from 'dyad'
