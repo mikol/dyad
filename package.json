@@ -28,8 +28,8 @@
   },
   "license": "CC-BY-SA-4.0",
   "dependencies": {
-    "@types/lodash.isplainobject": "^4.0.3",
-    "lodash.isplainobject": "^4.0.6"
+    "@types/lodash": "^4.14.109",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",

@@ -1,5 +1,5 @@
 import * as EventEmitter from 'events'
-import isPlainObject = require('lodash.isplainobject')
+import isPlainObject = require('lodash/isPlainObject')
 
 export interface Action {type: string, [key: string]: any}
 export type Dispatch = (action: any) => Promise<any>

@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var EventEmitter = require("events");
-var isPlainObject = require("lodash.isplainobject");
+var isPlainObject = require("lodash/isPlainObject");
 /**
  * Exported for type only; prefer `Dyad.getInstance()` over `new Dyad.Store()`.
  */
