@@ -1,0 +1,79 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {
+    "forin": false,
+    "jsdoc-format": [true, "check-multiline-start"],
+    "interface-name": [true, "never-prefix"],
+    "member-ordering": [true, {
+        "order": [
+          "public-static-field",
+          "protected-static-field",
+          "private-static-field",
+          "public-static-method",
+          "protected-static-method",
+          "private-static-method",
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
+        ]
+      }
+    ],
+    "no-duplicate-imports": true,
+    "no-invalid-template-strings": true,
+    "no-duplicate-switch-case": true,
+    "no-unnecessary-callback-wrapper": true,
+    "prefer-object-spread": true,
+    "prefer-template": [true, "allow-single-concat"],
+    "quotemark": [true, "single", "jsx-double", "avoid-escape", "avoid-template"],
+    "semicolon": [true, "never"],
+    "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "space-within-parens": [true, 0],
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+  },
+  "rules": {
+    "forin": false,
+    "jsdoc-format": [true, "check-multiline-start"],
+    "interface-name": [true, "never-prefix"],
+    "member-ordering": [true, {
+        "order": [
+          "public-static-field",
+          "protected-static-field",
+          "private-static-field",
+          "public-static-method",
+          "protected-static-method",
+          "private-static-method",
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
+        ]
+      }
+    ],
+    "no-invalid-template-strings": true,
+    "no-duplicate-imports": true,
+    "no-duplicate-switch-case": true,
+    "no-unnecessary-callback-wrapper": true,
+    "prefer-object-spread": true,
+    "prefer-template": [true, "allow-single-concat"],
+    "quotemark": [true, "single", "jsx-double", "avoid-escape", "avoid-template"],
+    "semicolon": [true, "never"],
+    "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "space-within-parens": [true, 0],
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+  },
+  "rulesDirectory": []
+}

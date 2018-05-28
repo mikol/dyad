@@ -1,0 +1,23 @@
+{
+  "files": [
+    "src/dyad.ts"
+  ],
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "noUnusedLocals": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2015",
+      "scripthost"
+    ],
+    "typeRoots": [
+      "d.ts",
+      "node_modules/@types"
+    ],
+    "outDir": "."
+  }
+}
