@@ -1,5 +1,10 @@
+// NOTE: We can’t use Sinon fake timers for predictable millisecond-resolution
+// test cases. Sinon “fake timers are synchronous implementations”, and Dyad
+// relies on [spec’d Promise behavior](https://promisesaplus.com/#point-67)
+// to debounce store updates, which means that it will not behave correclty
+// unless timers execute in a separate event loop after synchronous operations.
+
 import {expect} from 'chai'
-import * as sinon from 'sinon'
 
 import * as Dyad from '../src/dyad'
 
@@ -131,10 +136,6 @@ describe('store', () => {
 
         store.bind({
           TYPE: (_, set: Dyad.Setter, action: Dyad.Action) => {
-            // XXX: Couldn’t get sinon’s fake timers to work here. With actual
-            // timers, both `dispatch()` calls eventually emit events. With fake
-            // timers, only the last one does. Maybe both `set()` promises
-            // are resolving in the same event loop...?
             setTimeout(() => set('x', action.payload), action.payload * 2)
           }
         })
@@ -191,8 +192,6 @@ describe('store', () => {
   })
 
   describe('middleware', () => {
-    let clock: sinon.SinonFakeTimers | null = null
-
     function deferredActionMiddlware(action: any, next: Dyad.Dispatch) {
       if (action && action.meta && typeof action.meta.delay === 'number') {
         const timeoutId = setTimeout(() => next(action), action.meta.delay)
@@ -216,13 +215,6 @@ describe('store', () => {
     function thunkMiddleware(action: any, next: Dyad.Dispatch) {
       return typeof action === 'function' ? action(store) : next(action)
     }
-
-    afterEach(() => {
-      if (clock) {
-        clock.restore()
-        clock = null
-      }
-    })
 
     it('can log actions', () => {
       let n = 0
@@ -261,7 +253,9 @@ describe('store', () => {
 
         store.on('x', (nextValue) => {
           try {
-            expect(Date.now() - then).to.be.at.least(5)
+            const delta = Date.now() - then
+            expect(delta).to.be.at.least(3)
+            expect(delta).to.be.at.most(8)
             expect(nextValue).to.equal(1)
             resolve()
           } catch (error) {
