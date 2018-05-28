@@ -1,6 +1,6 @@
 {
   "name": "dyad",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A `(state, action) => state` key-value event emitting store for TypeScript and JavaScript apps",
   "main": "dyad.js",
   "types": "dyad.d.ts",
