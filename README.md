@@ -24,7 +24,7 @@ const store = Dyad.getInstance()
 store.initialize({counter: 0})
 
 // Register listener for changes to `counter`.
-store.on('counter', (_, nextValue) => {
+store.on('counter', (nextValue) => {
   console.log(nextValue)
 })
 
