@@ -16,8 +16,7 @@ npm install dyad
 ## Usage
 
 ```js
-import * as Dyad from 'dyad'
-
+const Dyad = require('dyad')
 const store = Dyad.getInstance()
 
 // Set initial `counter` state.
@@ -30,7 +29,7 @@ store.on('counter', (nextValue) => {
 
 // Register reducers.
 store.bind({
-  DECREMENT: (_, set, action) => set('counter', (prevValue) => --prevValue)
+  DECREMENT: (_, set, action) => set('counter', (prevValue) => --prevValue),
   INCREMENT: (_, set, action) => set('counter', (prevValue) => ++prevValue)
 })
 
