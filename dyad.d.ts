@@ -12,7 +12,9 @@ export declare type Middleware = (action: any, next: Dispatch) => any;
 export declare type Reducer = (get: Getter, set: Setter, action: Action) => void;
 export declare type Setter = (key: Key, edit: EditValue) => Promise<any>;
 /**
- * Exported for type only; prefer `Dyad.getInstance()` over `new Dyad.Store()`.
+ * Use `Dyad.getInstance()` for a singleton instance or `new Dyad.Store()` if
+ * multiple instances are desired. Then use `store.initialize(...)` to define
+ * the store’s initial state.
  */
 export declare class Store extends EventEmitter {
     constructor();
@@ -96,7 +98,7 @@ export declare class Store extends EventEmitter {
      * will be emitted as an event; otherwise no event will be emitted.
      *
      * @param key - The location where the resolved value of `edit` is stored.
-     * @param edit - The value of to save as `key` or a function, which – given
+     * @param edit - The value to save as `key` or a function, which – given
      *     the previous value of `key` – determines the next value to save.
      *
      * @returns A promise for the value eventually stored under `key`; if multiple

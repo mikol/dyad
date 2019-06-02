@@ -11,9 +11,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var EventEmitter = require("events");
-var isPlainObject = require("lodash/isPlainObject");
 /**
- * Exported for type only; prefer `Dyad.getInstance()` over `new Dyad.Store()`.
+ * Use `Dyad.getInstance()` for a singleton instance or `new Dyad.Store()` if
+ * multiple instances are desired. Then use `store.initialize(...)` to define
+ * the store’s initial state.
  */
 var Store = /** @class */ (function (_super) {
     __extends(Store, _super);
@@ -41,7 +42,7 @@ var Store = /** @class */ (function (_super) {
          * will be emitted as an event; otherwise no event will be emitted.
          *
          * @param key - The location where the resolved value of `edit` is stored.
-         * @param edit - The value of to save as `key` or a function, which – given
+         * @param edit - The value to save as `key` or a function, which – given
          *     the previous value of `key` – determines the next value to save.
          *
          * @returns A promise for the value eventually stored under `key`; if multiple
@@ -88,9 +89,6 @@ var Store = /** @class */ (function (_super) {
                 return Promise.reject(error);
             }
         };
-        if (store) {
-            return store;
-        }
         _this.initialize();
         return _this;
     }
@@ -122,7 +120,7 @@ var Store = /** @class */ (function (_super) {
             if (nextIndex === void 0) { nextIndex = 0; }
             if (nextAction === void 0) { nextAction = action; }
             if (nextIndex <= index) {
-                return Promise.reject(new Error('next() called more than once'));
+                return Promise.reject(new Error('`next()` called more than once'));
             }
             index = nextIndex;
             var nextMiddleware = middleware[nextIndex];
@@ -236,3 +234,21 @@ function getInstance() {
     return store;
 }
 exports.getInstance = getInstance;
+// -----------------------------------------------------------------------------
+function isPlainObject(x) {
+    if (x != null && typeof x === 'object') {
+        var prototype = Object.getPrototypeOf(x);
+        if (prototype === null) {
+            return true;
+        }
+        var nextPrototype 
+        // tslint:disable-next-line:no-conditional-assignment
+        = void 0;
+        // tslint:disable-next-line:no-conditional-assignment
+        while ((nextPrototype = Object.getPrototypeOf(prototype)) !== null) {
+            prototype = nextPrototype;
+        }
+        return Object.getPrototypeOf(x) === prototype;
+    }
+    return false;
+}
