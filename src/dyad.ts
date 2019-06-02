@@ -281,6 +281,7 @@ function isPlainObject(x: any): boolean {
     }
 
     let nextPrototype
+    // tslint:disable-next-line:no-conditional-assignment
     while ((nextPrototype = Object.getPrototypeOf(prototype)) !== null) {
       prototype = nextPrototype
     }
