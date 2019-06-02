@@ -1,7 +1,7 @@
 // NOTE: We can’t use Sinon fake timers for predictable millisecond-resolution
 // test cases. Sinon “fake timers are synchronous implementations”, and Dyad
 // relies on [spec’d Promise behavior](https://promisesaplus.com/#point-67)
-// to debounce store updates, which means that it will not behave correclty
+// to debounce store updates, which means that it will not behave correctly
 // unless timers execute in a separate event loop after synchronous operations.
 
 import {expect} from 'chai'
@@ -409,7 +409,7 @@ describe('store', () => {
               reject(new Error('Called `next()` multiple times'))
             })
             .catch((error: Error) => {
-              if (error.message === 'next() called more than once') {
+              if (error.message === '`next()` called more than once') {
                 resolve()
               } else {
                 reject(error)

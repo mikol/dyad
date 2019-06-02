@@ -1,5 +1,4 @@
 import * as EventEmitter from 'events'
-import isPlainObject = require('lodash/isPlainObject')
 
 export interface Action {type: string, [key: string]: any}
 export type Dispatch = (action: any) => Promise<any>
@@ -69,7 +68,7 @@ export class Store extends EventEmitter {
 
     return (function call(nextIndex = 0, nextAction = action): Promise<any> {
       if (nextIndex <= index) {
-        return Promise.reject(new Error('next() called more than once'))
+        return Promise.reject(new Error('`next()` called more than once'))
       }
 
       index = nextIndex
@@ -212,7 +211,7 @@ export class Store extends EventEmitter {
    * will be emitted as an event; otherwise no event will be emitted.
    *
    * @param key - The location where the resolved value of `edit` is stored.
-   * @param edit - The value of to save as `key` or a function, which – given
+   * @param edit - The value to save as `key` or a function, which – given
    *     the previous value of `key` – determines the next value to save.
    *
    * @returns A promise for the value eventually stored under `key`; if multiple
@@ -272,4 +271,25 @@ const store = new Store()
  */
 export function getInstance() {
   return store
+}
+
+// -----------------------------------------------------------------------------
+
+function isPlainObject(x: any): boolean {
+  if (x != null && typeof x === 'object') {
+    let prototype = Object.getPrototypeOf(x)
+
+    if (prototype === null) {
+      return true
+    }
+
+    let nextPrototype
+    while ((nextPrototype = Object.getPrototypeOf(prototype)) !== null) {
+      prototype = nextPrototype
+    }
+
+    return Object.getPrototypeOf(x) === prototype
+  }
+
+  return false
 }
