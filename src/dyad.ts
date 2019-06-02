@@ -10,16 +10,13 @@ export type Reducer = (get: Getter, set: Setter, action: Action) => void
 export type Setter = (key: Key, edit: EditValue) => Promise<any>
 
 /**
- * Exported for type only; prefer `Dyad.getInstance()` over `new Dyad.Store()`.
+ * Use `Dyad.getInstance()` for a singleton instance or `new Dyad.Store()` if
+ * multiple instances are desired. Then use `store.initialize(...)` to define
+ * the store’s initial state.
  */
 export class Store extends EventEmitter {
   constructor() {
     super()
-
-    if (store) {
-      return store
-    }
-
     this.initialize()
   }
 
